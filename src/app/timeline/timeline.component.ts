@@ -5,32 +5,37 @@ import { CommonModule } from '@angular/common';  // Importujemy CommonModule
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.css'],
-  standalone: true,  // Określamy, że komponent jest samodzielny
+  standalone: true,
   imports: [CommonModule]  // Używamy CommonModule w tym komponencie
 })
 export class TimelineComponent implements OnInit {
 
   events = [
     {
-      title: 'Event 1',
-      date: '2024-11-01',
-      description: 'This is the description for event 1.'
+      title: 'University',
+      subtitle: 'Web Development',
+      date: '2016-2020',
+      location: 'Miami',
+      description: 'Quisque sit amet urna et neque porttitor mattis.',
+      image: 'https://www.bootdey.com/image/600x600/FFB6C1/000000',
+      isOpen: false,
     },
     {
-      title: 'Event 2',
-      date: '2024-11-05',
-      description: 'This is the description for event 2.'
-    },
-    {
-      title: 'Event 3',
-      date: '2024-11-10',
-      description: 'This is the description for event 3.'
+      title: 'High School',
+      subtitle: 'Web Design',
+      date: '2012-2016',
+      location: 'New York',
+      description: 'Quisque sit amet urna et neque porttitor mattis.',
+      image: 'https://www.bootdey.com/image/600x600/FFB6C1/000000',
+      isOpen: false,
     }
   ];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  toggleEvent(event: any): void {
+    event.isOpen = !event.isOpen;
+  }
 }

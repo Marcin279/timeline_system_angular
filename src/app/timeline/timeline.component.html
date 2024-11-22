@@ -1,17 +1,29 @@
-<div class="container">
-  <h2 class="my-4 text-center">Oś Czasu</h2>
-  <div class="timeline">
-    <div *ngFor="let event of events" class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="card shadow-sm mb-3">
-          <div class="card-body">
-            <h5 class="card-title">{{ event.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ event.date }}</h6>
-            <p class="card-text">{{ event.description }}</p>
+<div class="container mt-5">
+  <div class="row">
+<!--    <div class="col-md-6 bg-img"></div>-->
+    <div class="col-md-6 col-md-offset-6 p-30 text-center bg-white">
+      <h4 class="mb-50 fw-bold">ACHIEVEMENTS</h4>
+      <ul class="timeline">
+        <li *ngFor="let event of events">
+          <div class="timeline-badge"></div>
+          <div class="timeline-panel" (click)="toggleEvent(event)">
+            <div class="timeline-heading">
+              <h5 class="timeline-title">{{ event.title }}</h5>
+              <p class="text-sm">{{ event.subtitle }}</p>
+              <p class="timeline-meta text-xs">
+                <i class="fas fa-map-marker-alt va-middle mr-5"></i>
+                <span class="va-middle mr-5">{{ event.location }}</span>
+                <i class="fas fa-calendar-alt va-middle mr-5"></i>
+                <span class="va-middle">{{ event.date }}</span>
+              </p>
+            </div>
+            <div class="timeline-body" *ngIf="event.isOpen">
+              <img [src]="event.image" alt="{{ event.title }}" class="event-image">
+              <p>{{ event.description }}</p>
+            </div>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
