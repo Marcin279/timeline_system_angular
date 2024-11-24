@@ -1,69 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../services/SharedService';
-import { CategoryDTO } from '../dto/CategoryDTO';
-import { CommonModule } from '@angular/common';  // Importujemy CommonModule
-import { FormsModule } from '@angular/forms';  // Zaimportuj FormsModule
+import { SharedService } from 'src/app/shared/shared.service';
+import { CategoryDTO } from 'src/app/dto/CategoryDTO';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css'],
-  standalone: true,
-  imports: [FormsModule],
+  styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  categories: CategoryDTO[] = [];
-  newCategory: CategoryDTO = { name: '', iconName: '', color: '' }; // Obiekt do tworzenia nowych kategorii
-  editCategory: CategoryDTO | null = null; // Obiekt do edytowania wybranej kategorii
+  categories: CategoryDTO[] = [];  // Lista kategorii, która będzie wyświetlana
+  newCategory: CategoryDTO = {     // Obiekt nowej kategorii
+    name: '',
+    iconName: '',
+    color: ''
+  };
 
   constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    // Subskrybuj zmiany w kategoriach z SharedService
+    this.sharedService.getAllCategories().subscribe((categories) => {
+      this.categories = categories;
+      console.log('Zaktualizowane kategorie:', this.categories);
+    });
   }
 
-  // Ładujemy wszystkie kategorie
-  loadCategories(): void {
-    this.categories = this.sharedService.getAllCategories();
-  }
-
-  // Tworzymy nową kategorię
+  // Dodaj nową kategorię
   addCategory(): void {
     if (this.newCategory.name && this.newCategory.iconName && this.newCategory.color) {
-      const categoryToAdd: CategoryDTO = {
-        name: this.newCategory.name,
-        iconName: this.newCategory.iconName,
-        color: this.newCategory.color,
-      };
-      this.sharedService.addCategory(categoryToAdd);
-      this.newCategory = { name: '', iconName: '', color: '' }; // Resetujemy formularz
-      this.loadCategories(); // Przeładuj listę kategorii
+      this.sharedService.addCategory(this.newCategory);
+      this.resetForm();  // Resetujemy formularz po dodaniu
+    } else {
+      console.error('Wszystkie pola muszą być wypełnione.');
     }
   }
 
-  // Edytujemy kategorię
-  editCategoryData(category: CategoryDTO): void {
-    this.editCategory = { ...category }; // Robimy kopię wybranej kategorii do edycji
+  // Edytuj kategorię
+  editCategory(category: CategoryDTO): void {
+    const updatedCategory: CategoryDTO = { ...category };  // Tworzymy kopię, aby móc ją edytować
+    updatedCategory.name = 'Nowa nazwa';  // Przykładowa zmiana, zmień według potrzeb
+    updatedCategory.iconName = 'new-icon'; // Zaktualizuj według formularza
+    updatedCategory.color = '#00FF00'; // Zaktualizuj kolor
+
+    this.sharedService.updateCategory(category.name, updatedCategory);  // Zaktualizowanie kategorii w SharedService
   }
 
-  // Zatwierdzamy edycję
-  saveEditedCategory(): void {
-    if (this.editCategory) {
-      this.sharedService.updateCategory(this.editCategory.name, this.editCategory);
-      this.editCategory = null; // Resetujemy edycję po zapisaniu
-      this.loadCategories(); // Przeładuj listę kategorii
-    }
+  // Usuń kategorię
+  deleteCategory(category: CategoryDTO): void {
+    this.sharedService.deleteCategory(category.name);  // Usunięcie kategorii z SharedService
   }
 
-  // Usuwamy kategorię
-  deleteCategory(name: string): void {
-    this.sharedService.deleteCategory(name);
-    console.log('Kategoria usunięta:', name);
-    this.loadCategories(); // Przeładuj listę kategorii po usunięciu
-  }
-
-  // Anulowanie edycji
-  cancelEdit(): void {
-    this.editCategory = null; // Resetujemy edycję
+  // Resetowanie formularza
+  resetForm(): void {
+    this.newCategory = { name: '', iconName: '', color: '' };
   }
 }

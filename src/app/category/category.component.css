@@ -1,118 +1,66 @@
-/* Podstawowe style dla formularzy */
-h3 {
-  font-family: 'Arial', sans-serif;
-  color: #333;
-  margin-bottom: 10px;
+.category-form {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-input {
-  font-size: 16px;
-  padding: 10px;
-  margin: 5px 0;
+.category-form div {
+  margin-bottom: 1rem;
+}
+
+.category-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.category-form input {
+  width: 100%;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  padding: 10px 15px;
+.category-form button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
   border: none;
+  background: #28a745;
+  color: white;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
-li button {
-  display: inline-block; /* Przyciski obok siebie */
-  margin-left: 10px; /* Odstęp między przyciskami */
+.category-form button[type="button"] {
+  background: #dc3545;
 }
 
-button:hover {
-  background-color: #45a049;
+.category-form button:hover {
+  opacity: 0.9;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Formatyzowanie sekcji */
-div {
-  margin: 20px;
-}
-
-ul {
-  list-style-type: none;
+.category-list ul {
+  list-style: none;
   padding: 0;
 }
 
-li {
-  display: flex; /* Flexbox dla układu wierszowego */
-  justify-content: space-between; /* Umożliwia rozłożenie elementów na całą szerokość */
-  align-items: center; /* Wyrównanie elementów w pionie */
-  padding: 10px;
-  margin-bottom: 5px;
-  background-color: #f9f9f9;
+.category-list li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.category-list button {
+  margin-left: 1rem;
+  padding: 0.3rem 0.6rem;
+  background: #007bff;
+  color: white;
+  border: none;
   border-radius: 4px;
-  border: 1px solid #ddd;
+  cursor: pointer;
 }
 
-li:hover {
-  background-color: #f1f1f1;
-}
-
-span {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  flex-grow: 1; /* Elementy wewnątrz 'span' będą się rozciągać */
-}
-
-span i {
-  margin-right: 10px;
-  font-size: 20px; /* Możesz dostosować rozmiar ikony */
-}
-
-button {
-  padding: 5px 10px; /* Mniejsze przyciski */
-  font-size: 14px;
-  margin-left: 10px;
-}
-
-/* Stylizacja dla formularzy edytowania kategorii */
-/*div *ngIf="editCategory" {*/
-/*  background-color: #f4f4f4;*/
-/*  padding: 20px;*/
-/*  border-radius: 4px;*/
-/*  border: 1px solid #ddd;*/
-/*}*/
-
-input:focus {
-  border-color: #4CAF50;
-  outline: none;
-}
-
-button:focus {
-  outline: none;
-}
-
-
-/* Dodanie responsywności */
-@media (max-width: 600px) {
-  input {
-    font-size: 14px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  li {
-    font-size: 14px;
-  }
+.category-list button:hover {
+  opacity: 0.9;
 }

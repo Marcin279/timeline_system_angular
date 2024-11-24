@@ -1,4 +1,4 @@
-<div>
+<div class="category-form">
   <!-- Formularz do tworzenia nowej kategorii -->
   <h3>Dodaj nową kategorię</h3>
   <input [(ngModel)]="newCategory.name" placeholder="Nazwa kategorii" />
@@ -14,7 +14,7 @@
         <i class="{{ category.iconName }}"></i> {{ category.name }}
       </span>
       <button (click)="editCategoryData(category)">Edytuj</button>
-      <button (click)="deleteCategory(category.id)">Usuń</button>
+      <button (click)="deleteCategory(category.name)">Usuń</button>
     </li>
   </ul>
 

@@ -1,0 +1,31 @@
+/* Kontener główny */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dwie kolumny o równych szerokościach */
+  grid-template-rows: auto auto auto; /* Trzy wiersze dopasowane do zawartości */
+  gap: 20px; /* Odstępy między elementami */
+  padding: 20px;
+}
+
+/* Sekcje formularzy i list */
+.form-section, .list-section {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Sekcja timeline zajmuje pełną szerokość */
+.timeline-section {
+  grid-column: 1 / -1; /* Rozciągnij na całą szerokość siatki */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Nagłówki sekcji */
+h2 {
+  margin-top: 0;
+  color: #333;
+}

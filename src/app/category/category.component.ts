@@ -24,7 +24,10 @@ export class CategoryComponent implements OnInit {
 
   // Ładujemy wszystkie kategorie
   loadCategories(): void {
-    this.categories = this.sharedService.getAllCategories();
+    this.sharedService.getAllCategories().subscribe((categories) => {
+      this.categories = categories;
+      console.log('Zaktualizowane kategorie:', this.categories);
+    });
   }
 
   // Tworzymy nową kategorię

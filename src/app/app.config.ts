@@ -3,6 +3,10 @@ import { provideRouter } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { provideClientHydration } from '@angular/platform-browser';
 import { TimelineComponent } from './timeline/timeline.component'; // Import komponentu
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { CategoryComponent } from './category/category.component';
 
 import { routes } from './app.routes';
 

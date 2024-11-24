@@ -33,7 +33,7 @@
       <input
         id="start_date"
         type="date"
-        [(ngModel)]="newEvent.start_date"
+        [(ngModel)]="formatDate(newEvent.start_date)"
         name="start_date"
         required
       />
@@ -44,7 +44,7 @@
       <input
         id="end_date"
         type="date"
-        [(ngModel)]="newEvent.end_date"
+        [(ngModel)]="formatDate(newEvent.end_date)"
         name="end_date"
         required
       />
