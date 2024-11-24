@@ -5,19 +5,22 @@
       <h4 class="mb-50 fw-bold">ACHIEVEMENTS</h4>
       <ul class="timeline">
         <li *ngFor="let event of events">
-          <div class="timeline-badge" [style.background-color]="event.color"></div> <!-- Używamy koloru z EventDTO -->
+          <div class="timeline-badge"></div>
           <div class="timeline-panel" (click)="toggleEvent(event)">
             <div class="timeline-heading">
-              <h5 class="timeline-title">{{ event.title }}</h5> <!-- Zmieniamy na event.title -->
-              <p class="text-sm">{{ event.category_name }}</p> <!-- Zmieniamy na event.category_name -->
+              <h5 class="timeline-title">{{ event.title }}</h5>
+              <p class="text-sm">{{ event.subtitle }}</p>
               <p class="timeline-meta text-xs">
                 <i class="fas fa-map-marker-alt va-middle mr-5"></i>
-                <span class="va-middle mr-5">{{ event.start_date }} - {{ event.end_date }}</span> <!-- Zmieniamy na event.start_date i event.end_date -->
+                <span class="va-middle mr-5">{{ event.location }}</span>
+                <i class="fas fa-calendar-alt va-middle mr-5"></i>
+                <span class="va-middle">{{ event.date }}</span>
               </p>
             </div>
+            <!-- Zmieniamy *ngIf, aby korzystało z mapy eventOpenState -->
             <div class="timeline-body" *ngIf="isEventOpen(event)">
-              <img [src]="event.image" alt="{{ event.title }}" class="event-image"> <!-- Używamy event.image -->
-              <p>{{ event.description }}</p> <!-- Używamy event.description -->
+              <img [src]="event.image" alt="{{ event.title }}" class="event-image">
+              <p>{{ event.description }}</p>
             </div>
           </div>
         </li>

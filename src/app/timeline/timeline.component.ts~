@@ -48,10 +48,10 @@ export class TimelineComponent implements OnInit {
   }
 
   // Pobieranie kategorii na podstawie nazwy
-  // getCategoryNameById(categoryName: string): string {
-  //   const category = this.categories.get(categoryName);
-  //   return category ? category.name : 'Brak kategorii';
-  // }
+  getCategoryNameById(categoryName: string): string {
+    const category = this.categories.get(categoryName);
+    return category ? category.name : 'Brak kategorii';
+  }
 
   // Sprawdzenie, czy wydarzenie jest rozwinięte
   isEventOpen(event: EventDTO): boolean {
