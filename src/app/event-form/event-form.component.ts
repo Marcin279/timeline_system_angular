@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/SharedService';
-import { FormsModule } from '@angular/forms'; // Dodaj to
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EventDTO } from '../dto/EventDTO';
 import { CategoryDTO } from '../dto/CategoryDTO';

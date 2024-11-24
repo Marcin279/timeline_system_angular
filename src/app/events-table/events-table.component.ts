@@ -3,28 +3,22 @@ import { CommonModule } from '@angular/common';  // Importujemy CommonModule
 import { SharedService} from '../services/SharedService';
 import { EventDTO } from '../dto/EventDTO';
 import { DatePipe} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-event-table',
   templateUrl: './events-table.component.html',
   styleUrls: ['./events-table.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   providers: [DatePipe]
 })
 
 export class EventTableComponent implements OnInit {
   events: EventDTO[] = [];
-  newEvent: EventDTO = {
-    id: 0,
-    category_name: '',
-    title: '',
-    start_date: '',
-    end_date: '',
-    description: '',
-    image: '',
-    color: '',
-  };
+  editMode: boolean = false;
+  eventToEdit: EventDTO | null = null; // Wydarzenie do edycji
+
   constructor(private sharedService: SharedService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
@@ -53,9 +47,27 @@ export class EventTableComponent implements OnInit {
   }
 
 
-  editEvent(event: EventDTO): void {
-    console.log('Edytowanie wydarzenia:', event);
-    this.sharedService.editEvent(event);
+  startEdit(event: EventDTO): void {
+    // Włączamy tryb edycji i ustawiamy dane wydarzenia do edycji
+    this.editMode = true;
+    this.eventToEdit = { ...event }; // Tworzymy kopię obiektu, aby edycja była niezależna od oryginalnych danych
+    console.log('Edytowanie wydarzenia:', this.eventToEdit);
+  }
+
+  saveChanges(): void {
+    if (this.eventToEdit) {
+      this.sharedService.editEvent(this.eventToEdit); // Wywołujemy metodę edycji
+      console.log('Zapisano zmiany:', this.eventToEdit);
+      this.editMode = false; // Wyłączamy tryb edycji
+      this.eventToEdit = null; // Czyścimy dane edytowanego wydarzenia
+      this.loadEvents(); // Odświeżamy listę wydarzeń
+    }
+  }
+
+  cancelEdit(): void {
+    // Anulowanie edycji
+    this.editMode = false;
+    this.eventToEdit = null;
   }
 
   deleteEvent(id: number): void {
@@ -63,9 +75,9 @@ export class EventTableComponent implements OnInit {
     console.log('Wydarzenie usunięte:', id);
   }
 
-  addEvent(event: EventDTO): void {
-    console.log('Dodawanie nowego wydarzenia:', event);
-    this.sharedService.addEvent(event);
-    console.log('Wydarzenie dodane:', event);
-  }
+  // addEvent(event: EventDTO): void {
+  //   console.log('Dodawanie nowego wydarzenia:', event);
+  //   this.sharedService.addEvent(event);
+  //   console.log('Wydarzenie dodane:', event);
+  // }
 }
