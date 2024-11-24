@@ -4,7 +4,7 @@
     <div class="col-md-6 col-md-offset-6 p-30 text-center bg-white">
       <h4 class="mb-50 fw-bold">ACHIEVEMENTS</h4>
       <ul class="timeline">
-        <li *ngFor="let event of events">
+        <li *ngFor="let event of EventsForTimeline">
           <div class="timeline-badge" [style.background-color]="event.color"></div> <!-- Używamy koloru z EventDTO -->
           <div class="timeline-panel" (click)="toggleEvent(event)">
             <div class="timeline-heading">

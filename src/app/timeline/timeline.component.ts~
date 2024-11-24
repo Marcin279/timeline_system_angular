@@ -18,6 +18,7 @@ export class TimelineComponent implements OnInit {
   // categories: Map<string, CategoryDTO> = new Map();  // Mapujemy kategorie po nazwach
   categories: CategoryDTO[] = [];
   eventOpenState: Map<number, boolean> = new Map();  // Mapa przechowująca stan otwarcia każdego wydarzenia
+  EventsForTimeline: EventDTO[] = [];
 
   constructor(private sharedService: SharedService) { }
 
@@ -25,11 +26,13 @@ export class TimelineComponent implements OnInit {
     // Ładowanie wszystkich wydarzeń
     this.sharedService.getAllEvents().subscribe(events => {
       this.events = events;  // Przypisujemy dane z Observable do tablicy
+      this.EventsForTimeline = [...events];
       this.events.forEach(event => {
         this.eventOpenState.set(event.id, false);  // Domyślnie ustawiamy "false" dla każdego wydarzenia
       });
+      this.sortEventsByStartDate();
     });
-
+    
     // Ładowanie wszystkich kategorii
     this.loadCategories();
   }
@@ -47,10 +50,21 @@ export class TimelineComponent implements OnInit {
     this.eventOpenState.set(event.id, !currentState);  // Zmieniamy stan
   }
 
-  // Pobieranie kategorii na podstawie nazwy
-  getCategoryNameById(categoryName: string): string {
-    const category = this.categories.get(categoryName);
-    return category ? category.name : 'Brak kategorii';
+  // Funkcja do sortowania wydarzeń po dacie rozpoczęcia (od najstarszego)
+  sortEventsByStartDate(): void {
+    this.EventsForTimeline.sort((a, b) => {
+      const dateA = new Date(a.start_date);
+      const dateB = new Date(b.start_date);
+
+      // Porównanie dat w porządku rosnącym (od najstarszego do najnowszego)
+      if (dateA < dateB) {
+        return -1;  // Jeśli dataA jest wcześniejsza, a więc ma być wyświetlona pierwsza
+      }
+      if (dateA > dateB) {
+        return 1;  // Jeśli dataA jest późniejsza, a więc ma być wyświetlona później
+      }
+      return 0;  // Jeśli daty są równe, nie zmieniamy kolejności
+    });
   }
 
   // Sprawdzenie, czy wydarzenie jest rozwinięte
