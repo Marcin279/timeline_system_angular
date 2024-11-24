@@ -19,7 +19,7 @@
       <td>{{ event.category_name }}</td>
       <td>{{ event.description }}</td>
       <td>
-        <button (click)="addEvent(event)">Dodaj</button>
+        <button (click)="addEvent(event)">Dodaj</button>">
         <button (click)="editEvent(event)">Edytuj</button>
         <button (click)="deleteEvent(event.id)">Usuń</button>
       </td>

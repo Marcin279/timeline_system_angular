@@ -1,0 +1,30 @@
+<div>
+  <!-- Formularz do tworzenia nowej kategorii -->
+  <h3>Dodaj nową kategorię</h3>
+  <input [(ngModel)]="newCategory.name" placeholder="Nazwa kategorii" />
+  <input [(ngModel)]="newCategory.iconName" placeholder="Nazwa ikony (np. 'home')" />
+  <input [(ngModel)]="newCategory.color" placeholder="Kolor kategorii (np. '#FF5733')" />
+  <button (click)="addCategory()">Dodaj kategorię</button>
+
+  <!-- Lista kategorii -->
+  <h3>Lista kategorii</h3>
+  <ul>
+    <li *ngFor="let category of categories">
+      <span [style.color]="category.color">
+        <i class="{{ category.iconName }}"></i> {{ category.name }}
+      </span>
+      <button (click)="editCategoryData(category)">Edytuj</button>
+      <button (click)="deleteCategory(category.id)">Usuń</button>
+    </li>
+  </ul>
+
+  <!-- Formularz do edytowania kategorii -->
+  <div *ngIf="editCategory">
+    <h3>Edytuj kategorię</h3>
+    <input [(ngModel)]="editCategory.name" placeholder="Nazwa kategorii" />
+    <input [(ngModel)]="editCategory.iconName" placeholder="Nazwa ikony (np. 'home')" />
+    <input [(ngModel)]="editCategory.color" placeholder="Kolor kategorii (np. '#FF5733')" />
+    <button (click)="saveEditedCategory()">Zapisz zmiany</button>
+    <button (click)="cancelEdit()">Anuluj</button>
+  </div>
+</div>

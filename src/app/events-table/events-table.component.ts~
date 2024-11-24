@@ -37,4 +37,6 @@ export class EventTableComponent implements OnInit {
     this.sessionService.addEvent(event);
     console.log('Wydarzenie dodane:', event);
   }
+
+  protected readonly addEventListener = addEventListener;
 }

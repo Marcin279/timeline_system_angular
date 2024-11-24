@@ -1,0 +1,103 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SharedSessionService {
+  private userData = new BehaviorSubject<any>(null);
+  userData$ = this.userData.asObservable();
+
+  private events = new BehaviorSubject<any[]>([]); // Lista wydarzeń
+  events$ = this.events.asObservable();
+
+  private categories = new BehaviorSubject<any[]>([]); // Lista kategorii
+  categories$ = this.categories.asObservable();
+
+  constructor() {
+    // Odczytaj dane z sessionStorage przy inicjalizacji serwisu
+    const storedUserData = sessionStorage.getItem('userData');
+    const storedEvents = sessionStorage.getItem('events');
+    const storedCategories = sessionStorage.getItem('categories');
+
+    if (storedUserData) this.userData.next(JSON.parse(storedUserData));
+    if (storedEvents) this.events.next(JSON.parse(storedEvents));
+    if (storedCategories) this.categories.next(JSON.parse(storedCategories));
+  }
+
+  // Zarządzanie użytkownikiem
+  setUserData(data: any): void {
+    this.userData.next(data);
+    sessionStorage.setItem('userData', JSON.stringify(data));
+  }
+
+  getUserData(): any {
+    return this.userData.getValue();
+  }
+
+  clearUserData(): void {
+    this.userData.next(null);
+    sessionStorage.removeItem('userData');
+  }
+
+  // Zarządzanie wydarzeniami
+  addEvent(event: any): void {
+    const currentEvents = this.events.getValue();
+    currentEvents.push(event);
+    this.events.next(currentEvents);
+    sessionStorage.setItem('events', JSON.stringify(currentEvents));
+  }
+
+  updateEvent(index: number, updatedEvent: any): void {
+    const currentEvents = this.events.getValue();
+    if (currentEvents[index]) {
+      currentEvents[index] = updatedEvent;
+      this.events.next(currentEvents);
+      sessionStorage.setItem('events', JSON.stringify(currentEvents));
+    }
+  }
+
+  deleteEvent(index: number): void {
+    const currentEvents = this.events.getValue();
+    if (currentEvents[index]) {
+      currentEvents.splice(index, 1);
+      this.events.next(currentEvents);
+      sessionStorage.setItem('events', JSON.stringify(currentEvents));
+    }
+  }
+
+  getAllEvents(): any[] {
+    return this.events.getValue();
+  }
+
+  // Zarządzanie kategoriami
+  addCategory(category: any): void {
+    const currentCategories = this.categories.getValue();
+    currentCategories.push(category);
+    this.categories.next(currentCategories);
+    sessionStorage.setItem('categories', JSON.stringify(currentCategories));
+  }
+
+  deleteCategory(index: number): void {
+    const currentCategories = this.categories.getValue();
+    if (currentCategories[index]) {
+      currentCategories.splice(index, 1);
+      this.categories.next(currentCategories);
+      sessionStorage.setItem('categories', JSON.stringify(currentCategories));
+    }
+  }
+
+  getAllCategories(): any[] {
+    return this.categories.getValue();
+  }
+
+  clearAllData(): void {
+    this.userData.next(null);
+    this.events.next([]);
+    this.categories.next([]);
+
+    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem('events');
+    sessionStorage.removeItem('categories');
+  }
+}

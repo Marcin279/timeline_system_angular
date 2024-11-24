@@ -1,0 +1,118 @@
+/* Podstawowe style dla formularzy */
+h3 {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+input {
+  font-size: 16px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+li button {
+  display: inline-block; /* Przyciski obok siebie */
+  margin-left: 10px; /* Odstęp między przyciskami */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Formatyzowanie sekcji */
+div {
+  margin: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex; /* Flexbox dla układu wierszowego */
+  justify-content: space-between; /* Umożliwia rozłożenie elementów na całą szerokość */
+  align-items: center; /* Wyrównanie elementów w pionie */
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+li:hover {
+  background-color: #f1f1f1;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  flex-grow: 1; /* Elementy wewnątrz 'span' będą się rozciągać */
+}
+
+span i {
+  margin-right: 10px;
+  font-size: 20px; /* Możesz dostosować rozmiar ikony */
+}
+
+button {
+  padding: 5px 10px; /* Mniejsze przyciski */
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+/* Stylizacja dla formularzy edytowania kategorii */
+div *ngIf="editCategory" {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+
+/* Dodanie responsywności */
+@media (max-width: 600px) {
+  input {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  li {
+    font-size: 14px;
+  }
+}

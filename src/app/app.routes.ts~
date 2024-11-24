@@ -7,6 +7,6 @@ import {CategoryComponent} from './category/category.component';
 export const routes: Routes = [
   { path: '', component: TimelineComponent }, // Trasa do komponentu timeline
   { path: 'events-table', component: EventTableComponent },
-  { path: '', component: CategoryComponent },
+  { path: 'category', component: CategoryComponent },
   { path: '**', redirectTo: '' },
 ];
