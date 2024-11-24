@@ -77,7 +77,7 @@ export class EventTableComponent implements OnInit {
     console.log('Wydarzenie usunięte:', id);
   }
 
-  sortEvents(field: keyof EventDTO): void {
+  sortEvents(field: string): void {
     // Przełączanie kierunku sortowania dla danego pola
     this.sortDirection[field] = !this.sortDirection[field];
 

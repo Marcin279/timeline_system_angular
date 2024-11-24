@@ -3,11 +3,26 @@
   <table>
     <thead>
     <tr>
-      <th>Tytuł</th>
-      <th>Data rozpoczecia</th>
-      <th>Data zakonczenia</th>
-      <th>Kategoria</th>
-      <th>Description</th>
+      <th>
+        Tytuł
+        <button (click)="sortEvents('title')">↑↓</button>
+      </th>
+      <th>
+        Data rozpoczęcia
+        <button (click)="sortEvents('start_date')">↑↓</button>
+      </th>
+      <th>
+        Data zakończenia
+        <button (click)="sortEvents('end_date')">↑↓</button>
+      </th>
+      <th>
+        Kategoria
+        <button (click)="sortEvents('category_name')">↑↓</button>
+      </th>
+      <th>
+        Opis
+        <button (click)="sortEvents('description')">↑↓</button>
+      </th>
       <th>Akcje</th>
     </tr>
     </thead>
@@ -26,7 +41,6 @@
     </tbody>
   </table>
 </div>
-
 
 <!-- Formularz edycji -->
 <div *ngIf="editMode" class="edit-form">
