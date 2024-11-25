@@ -1,5 +1,4 @@
 <div class="category-form">
-  <h2>Dodaj nową kategorię</h2>
   <form (ngSubmit)="addCategory()">
     <!-- Pole na nazwę kategorii -->
     <div>
@@ -45,14 +44,35 @@
   </form>
 </div>
 
+<!--&lt;!&ndash; Lista kategorii &ndash;&gt;-->
+<!--<div class="category-list">-->
+<!--  <h2>Lista kategorii</h2>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let category of categories">-->
+<!--      <span>{{ category.name }} ({{ category.iconName }}, {{ category.color }})</span>-->
+<!--      <button (click)="editCategoryData(category)">Edytuj</button>-->
+<!--      <button (click)="deleteCategory(category.name)">Usuń</button>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
 <!-- Lista kategorii -->
 <div class="category-list">
   <h2>Lista kategorii</h2>
-  <ul>
-    <li *ngFor="let category of categories">
-      <span>{{ category.name }} ({{ category.iconName }}, {{ category.color }})</span>
-      <button (click)="editCategoryData(category)">Edytuj</button>
-      <button (click)="deleteCategory(category.name)">Usuń</button>
-    </li>
-  </ul>
+  <div class="category-cards">
+    <div *ngFor="let category of categories" class="category-card">
+      <div class="category-icon" [style.backgroundColor]="category.color">
+        <i class="material-icons">{{ category.iconName }}</i>
+      </div>
+      <div class="category-details">
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.iconName }}, {{ category.color }}</p>
+      </div>
+      <div class="category-actions">
+        <button (click)="editCategoryData(category)" class="btn btn-edit">Edytuj</button>
+        <button (click)="deleteCategory(category.name)" class="btn btn-delete">Usuń</button>
+      </div>
+    </div>
+  </div>
 </div>
+

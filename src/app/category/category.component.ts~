@@ -1,57 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/shared/shared.service';
-import { CategoryDTO } from 'src/app/dto/CategoryDTO';
+import { SharedService } from '../services/SharedService';
+import { CategoryDTO } from '../dto/CategoryDTO';
+import { CommonModule } from '@angular/common';  // Importujemy CommonModule
+import { FormsModule } from '@angular/forms';  // Zaimportuj FormsModule
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
 })
 export class CategoryComponent implements OnInit {
-  categories: CategoryDTO[] = [];  // Lista kategorii, która będzie wyświetlana
-  newCategory: CategoryDTO = {     // Obiekt nowej kategorii
-    name: '',
-    iconName: '',
-    color: ''
-  };
+  categories: CategoryDTO[] = [];
+  newCategory: CategoryDTO = { name: '', iconName: '', color: '' }; // Obiekt do tworzenia nowych kategorii
+  editCategory: CategoryDTO | null = null; // Obiekt do edytowania wybranej kategorii
 
   constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
-    // Subskrybuj zmiany w kategoriach z SharedService
+    this.loadCategories();
+  }
+
+  // Ładujemy wszystkie kategorie
+  loadCategories(): void {
     this.sharedService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
       console.log('Zaktualizowane kategorie:', this.categories);
     });
   }
 
-  // Dodaj nową kategorię
+  // Tworzymy nową kategorię
   addCategory(): void {
     if (this.newCategory.name && this.newCategory.iconName && this.newCategory.color) {
-      this.sharedService.addCategory(this.newCategory);
-      this.resetForm();  // Resetujemy formularz po dodaniu
-    } else {
-      console.error('Wszystkie pola muszą być wypełnione.');
+      const categoryToAdd: CategoryDTO = {
+        name: this.newCategory.name,
+        iconName: this.newCategory.iconName,
+        color: this.newCategory.color,
+      };
+      saveCategoryToLocalStorage();
+      this.sharedService.addCategory(categoryToAdd); // Dodajemy kategorię
+
+      this.newCategory = { name: '', iconName: '', color: '' }; // Resetujemy formularz
+      this.loadCategories(); // Załaduj kategorie, aby odświeżyć widok
     }
   }
 
-  // Edytuj kategorię
-  editCategory(category: CategoryDTO): void {
-    const updatedCategory: CategoryDTO = { ...category };  // Tworzymy kopię, aby móc ją edytować
-    updatedCategory.name = 'Nowa nazwa';  // Przykładowa zmiana, zmień według potrzeb
-    updatedCategory.iconName = 'new-icon'; // Zaktualizuj według formularza
-    updatedCategory.color = '#00FF00'; // Zaktualizuj kolor
-
-    this.sharedService.updateCategory(category.name, updatedCategory);  // Zaktualizowanie kategorii w SharedService
+  // Edytujemy kategorię
+  editCategoryData(category: CategoryDTO): void {
+    this.editCategory = { ...category }; // Robimy kopię wybranej kategorii do edycji
   }
 
-  // Usuń kategorię
-  deleteCategory(category: CategoryDTO): void {
-    this.sharedService.deleteCategory(category.name);  // Usunięcie kategorii z SharedService
+  // Zatwierdzamy edycję
+  saveEditedCategory(): void {
+    if (this.editCategory) {
+      this.sharedService.updateCategory(this.editCategory.name, this.editCategory);
+      this.editCategory = null; // Resetujemy edycję po zapisaniu
+      this.loadCategories(); // Przeładuj listę kategorii
+    }
   }
 
-  // Resetowanie formularza
-  resetForm(): void {
-    this.newCategory = { name: '', iconName: '', color: '' };
+  // Usuwamy kategorię
+  deleteCategory(name: string): void {
+    this.sharedService.deleteCategory(name);
+    console.log('Kategoria usunięta:', name);
+    this.loadCategories(); // Przeładuj listę kategorii po usunięciu
+  }
+
+  // Anulowanie edycji
+  cancelEdit(): void {
+    this.editCategory = null; // Resetujemy edycję
+  }
+
+  private saveCategoriesToLocalStorage(): void {
+    const categoriesArray = Array.from(this.categories.values());
+    localStorage.setItem('categories', JSON.stringify(categoriesArray));
   }
 }

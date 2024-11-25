@@ -1,30 +1,79 @@
 <div class="category-form">
-  <!-- Formularz do tworzenia nowej kategorii -->
-  <h3>Dodaj nową kategorię</h3>
-  <input [(ngModel)]="newCategory.name" placeholder="Nazwa kategorii" />
-  <input [(ngModel)]="newCategory.iconName" placeholder="Nazwa ikony (np. 'home')" />
-  <input [(ngModel)]="newCategory.color" placeholder="Kolor kategorii (np. '#FF5733')" />
-  <button (click)="addCategory()">Dodaj kategorię</button>
+  <h2>Dodaj nową kategorię</h2>
+  <form (ngSubmit)="addCategory()">
+    <!-- Pole na nazwę kategorii -->
+    <div>
+      <label for="name">Nazwa kategorii:</label>
+      <input
+        id="name"
+        type="text"
+        [(ngModel)]="newCategory.name"
+        name="name"
+        required
+        placeholder="Wpisz nazwę kategorii"
+      />
+    </div>
 
-  <!-- Lista kategorii -->
-  <h3>Lista kategorii</h3>
-  <ul>
-    <li *ngFor="let category of categories">
-      <span [style.color]="category.color">
-        <i class="{{ category.iconName }}"></i> {{ category.name }}
-      </span>
-      <button (click)="editCategoryData(category)">Edytuj</button>
-      <button (click)="deleteCategory(category.name)">Usuń</button>
-    </li>
-  </ul>
+    <!-- Pole na nazwę ikony -->
+    <div>
+      <label for="iconName">Nazwa ikony:</label>
+      <input
+        id="iconName"
+        type="text"
+        [(ngModel)]="newCategory.iconName"
+        name="iconName"
+        required
+        placeholder="Wpisz nazwę ikony"
+      />
+    </div>
 
-  <!-- Formularz do edytowania kategorii -->
-  <div *ngIf="editCategory">
-    <h3>Edytuj kategorię</h3>
-    <input [(ngModel)]="editCategory.name" placeholder="Nazwa kategorii" />
-    <input [(ngModel)]="editCategory.iconName" placeholder="Nazwa ikony (np. 'home')" />
-    <input [(ngModel)]="editCategory.color" placeholder="Kolor kategorii (np. '#FF5733')" />
-    <button (click)="saveEditedCategory()">Zapisz zmiany</button>
-    <button (click)="cancelEdit()">Anuluj</button>
+    <!-- Pole na kolor kategorii -->
+    <div>
+      <label for="color">Kolor kategorii:</label>
+      <input
+        id="color"
+        type="color"
+        [(ngModel)]="newCategory.color"
+        name="color"
+        required
+      />
+    </div>
+
+    <!-- Przyciski formularza -->
+    <button type="submit">Dodaj kategorię</button>
+    <button type="button" (click)="cancelEdit()">Anuluj</button>
+  </form>
+</div>
+
+<!--&lt;!&ndash; Lista kategorii &ndash;&gt;-->
+<!--<div class="category-list">-->
+<!--  <h2>Lista kategorii</h2>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let category of categories">-->
+<!--      <span>{{ category.name }} ({{ category.iconName }}, {{ category.color }})</span>-->
+<!--      <button (click)="editCategoryData(category)">Edytuj</button>-->
+<!--      <button (click)="deleteCategory(category.name)">Usuń</button>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!-- Lista kategorii -->
+<div class="category-list">
+  <h2>Lista kategorii</h2>
+  <div class="category-cards">
+    <div *ngFor="let category of categories" class="category-card">
+      <div class="category-icon" [style.backgroundColor]="category.color">
+        <i class="material-icons">{{ category.iconName }}</i>
+      </div>
+      <div class="category-details">
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.iconName }}, {{ category.color }}</p>
+      </div>
+      <div class="category-actions">
+        <button (click)="editCategoryData(category)" class="btn btn-edit">Edytuj</button>
+        <button (click)="deleteCategory(category.name)" class="btn btn-delete">Usuń</button>
+      </div>
+    </div>
   </div>
 </div>
+

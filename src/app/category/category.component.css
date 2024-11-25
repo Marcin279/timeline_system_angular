@@ -64,3 +64,97 @@
 .category-list button:hover {
   opacity: 0.9;
 }
+
+
+/* Ogólne style dla listy kategorii */
+.category-list {
+  margin: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Kontener kart */
+.category-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Karta kategorii */
+.category-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+/* Ikona kategorii */
+.category-icon {
+  background-color: #ddd;
+  padding: 20px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.category-icon i {
+  font-size: 40px;
+  color: #fff;
+}
+
+/* Szczegóły kategorii */
+.category-details h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.category-details p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Przyciski edytuj/usuń */
+.category-actions {
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.btn-edit {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #45a049;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+.btn-delete:hover {
+  background-color: #e53935;
+}

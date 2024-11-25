@@ -10,7 +10,7 @@ export class SharedService {
   private events: Map<number, EventDTO> = new Map();
   private categories: Map<string, CategoryDTO> = new Map();
 
-  private nextEventId: number = 1;
+  private nextEventId: number = 2;
 
   // BehaviorSubjects do emisji aktualnych danych
   // BehaviorSubject w SharedService umożliwia emitowanie aktualnych danych (wydarzenia i kategorie) do subskrybentów.
@@ -25,7 +25,7 @@ export class SharedService {
       start_date: '2024-12-01',
       end_date: '2024-12-02',
       description: 'Opis przykładowego wydarzenia',
-      image: 'https://example.com/image.jpg',
+      image: 'https://us-wd.gr-cdn.com/help/sites/9/2022/07/1649/CleanShot202022-07-0720at2018.48.54-1024x621.jpeg',
       color: '#FF5733'
     };
 

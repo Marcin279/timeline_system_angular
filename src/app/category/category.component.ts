@@ -38,9 +38,12 @@ export class CategoryComponent implements OnInit {
         iconName: this.newCategory.iconName,
         color: this.newCategory.color,
       };
-      this.sharedService.addCategory(categoryToAdd);
+
+      this.sharedService.addCategory(categoryToAdd); // Dodajemy kategorię
+      this.saveCategoriesToLocalStorage();
+
       this.newCategory = { name: '', iconName: '', color: '' }; // Resetujemy formularz
-      this.loadCategories(); // Przeładuj listę kategorii
+      this.loadCategories(); // Załaduj kategorie, aby odświeżyć widok
     }
   }
 
@@ -69,4 +72,22 @@ export class CategoryComponent implements OnInit {
   cancelEdit(): void {
     this.editCategory = null; // Resetujemy edycję
   }
+
+  private saveCategoriesToLocalStorage(): void {
+    // Sprawdzamy, czy są już zapisane kategorie w localStorage
+    const storedCategories = localStorage.getItem('categories');
+    let categoriesArray: CategoryDTO[] = [];
+
+    if (storedCategories) {
+      // Jeśli kategorie już są zapisane, parsujemy je
+      categoriesArray = JSON.parse(storedCategories);
+    }
+
+    // Dodajemy nową kategorię do listy
+    categoriesArray.push(...this.categories);
+
+    // Zapisujemy zaktualizowaną listę kategorii w localStorage
+    localStorage.setItem('categories', JSON.stringify(categoriesArray));
+  }
+
 }

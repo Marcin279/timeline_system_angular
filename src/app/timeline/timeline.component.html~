@@ -4,7 +4,7 @@
       <h4 class="mb-50 fw-bold">TimeLine</h4>
       <ul class="timeline">
         <li *ngFor="let event of EventsForTimeline">
-          <div class="timeline-badge" [style.background-color]="getCategoryColor(event.category_name)"></div> <!-- Używamy koloru z EventDTO -->
+          <div class="timeline-badge" [style.background-color]="categories[event.category_name].color"></div> <!-- Używamy koloru z EventDTO -->
           <div class="timeline-panel" (click)="toggleEvent(event)">
             <div class="timeline-heading">
               <h5 class="timeline-title">{{ event.title }}</h5> <!-- Zmieniamy na event.title -->

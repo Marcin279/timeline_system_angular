@@ -10,9 +10,10 @@ export class SharedService {
   private events: Map<number, EventDTO> = new Map();
   private categories: Map<string, CategoryDTO> = new Map();
 
-  private nextEventId: number = 1;
+  private nextEventId: number = 2;
 
   // BehaviorSubjects do emisji aktualnych danych
+  // BehaviorSubject w SharedService umożliwia emitowanie aktualnych danych (wydarzenia i kategorie) do subskrybentów.
   private eventsSubject: BehaviorSubject<EventDTO[]> = new BehaviorSubject<EventDTO[]>([]);
   private categoriesSubject: BehaviorSubject<CategoryDTO[]> = new BehaviorSubject<CategoryDTO[]>([]);
 

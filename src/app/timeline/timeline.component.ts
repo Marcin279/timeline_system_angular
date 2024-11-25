@@ -50,6 +50,14 @@ export class TimelineComponent implements OnInit {
     this.eventOpenState.set(event.id, !currentState);  // Zmieniamy stan
   }
 
+  // Funkcja do pobierania koloru
+  getCategoryColor(categoryName: string): string {
+    const category = this.categories.find(
+      (cat) => cat.name === categoryName
+    );
+    return category ? category.color : '#000000'; // Domyślny kolor, jeśli nie znaleziono
+  }
+
   // Funkcja do sortowania wydarzeń po dacie rozpoczęcia (od najstarszego)
   sortEventsByStartDate(): void {
     this.EventsForTimeline.sort((a, b) => {
