@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';  // Importujemy CommonModule
+import { CommonModule } from '@angular/common';
 import { SharedService} from '../services/SharedService';
 import { EventDTO } from '../dto/EventDTO';
 import { DatePipe} from '@angular/common';
@@ -17,9 +17,9 @@ import { FormsModule } from '@angular/forms';
 export class EventTableComponent implements OnInit {
   events: EventDTO[] = [];
   editMode: boolean = false;
-  eventToEdit: EventDTO | null = null; // Wydarzenie do edycji
+  eventToEdit: EventDTO | null = null;
   sortField: string = '';
-  sortDirection: { [key: string]: boolean } = {}; // Obiekt przechowujący kierunek sortowania
+  sortDirection: { [key: string]: boolean } = {};
 
   constructor(private sharedService: SharedService, private datePipe: DatePipe) {}
 
@@ -30,19 +30,17 @@ export class EventTableComponent implements OnInit {
   loadEvents(): void {
     this.sharedService.getAllEvents().subscribe((events) => {
       this.events = events;
-      console.log('Zaktualizowane wydarzenia:', this.events);
     });
   }
 
   formatDate(date: string): string {
-    // Jeśli data jest już w formacie yyyy-MM-dd, zwróć ją bez zmian
     if (!date) return '';
 
     const parsedDate = new Date(date);
 
     // Formatowanie na yyyy-MM-dd
     const year = parsedDate.getFullYear();
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0'); // Miesiące zaczynają się od 0
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const day = parsedDate.getDate().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}`;
@@ -50,38 +48,31 @@ export class EventTableComponent implements OnInit {
 
 
   startEdit(event: EventDTO): void {
-    // Włączamy tryb edycji i ustawiamy dane wydarzenia do edycji
     this.editMode = true;
-    this.eventToEdit = { ...event }; // Tworzymy kopię obiektu, aby edycja była niezależna od oryginalnych danych
-    console.log('Edytowanie wydarzenia:', this.eventToEdit);
+    this.eventToEdit = { ...event };
   }
 
   saveChanges(): void {
     if (this.eventToEdit) {
-      this.sharedService.editEvent(this.eventToEdit); // Wywołujemy metodę edycji
-      console.log('Zapisano zmiany:', this.eventToEdit);
-      this.editMode = false; // Wyłączamy tryb edycji
-      this.eventToEdit = null; // Czyścimy dane edytowanego wydarzenia
-      this.loadEvents(); // Odświeżamy listę wydarzeń
+      this.sharedService.editEvent(this.eventToEdit);
+      this.editMode = false;
+      this.eventToEdit = null;
+      this.loadEvents();
     }
   }
 
   cancelEdit(): void {
-    // Anulowanie edycji
     this.editMode = false;
     this.eventToEdit = null;
   }
 
   deleteEvent(id: number): void {
     this.sharedService.deleteEvent(id);
-    console.log('Wydarzenie usunięte:', id);
   }
 
   sortEvents(field: keyof EventDTO): void {
-    // Przełączanie kierunku sortowania dla danego pola
     this.sortDirection[field] = !this.sortDirection[field];
 
-    // Sortowanie w zależności od kierunku
     this.events.sort((a, b) => {
       const valA = a[field];
       const valB = b[field];
@@ -90,6 +81,5 @@ export class EventTableComponent implements OnInit {
       if (valA > valB) return this.sortDirection[field] ? 1 : -1;
       return 0;
     });
-    console.log(`Posortowane po ${field}:`, this.events);
   }
 }

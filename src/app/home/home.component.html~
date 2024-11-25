@@ -1,6 +1,7 @@
 <div class="grid-container">
   <!-- Formularz dodawania nowego wydarzenia -->
   <div class="form-section">
+    <h2>Dodaj Wydarzenie</h2>
     <app-event-form></app-event-form>
   </div>
 
@@ -15,13 +16,7 @@
     <h2>Dodaj Kategorię</h2>
     <app-category></app-category>
   </div>
-
-<!--  &lt;!&ndash; Lista kategorii &ndash;&gt;-->
-<!--  <div class="list-section">-->
-<!--    <h2>Lista Kategorii</h2>-->
-<!--    <app-category-table></app-category-table>-->
-<!--  </div>-->
-
+  
   <!-- Timeline -->
   <div class="timeline-section">
     <h2>Linia Czasu</h2>

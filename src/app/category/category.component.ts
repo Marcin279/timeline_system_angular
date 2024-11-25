@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/SharedService';
 import { CategoryDTO } from '../dto/CategoryDTO';
-import { CommonModule } from '@angular/common';  // Importujemy CommonModule
-import { FormsModule } from '@angular/forms';  // Zaimportuj FormsModule
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-category',
@@ -13,8 +13,8 @@ import { FormsModule } from '@angular/forms';  // Zaimportuj FormsModule
 })
 export class CategoryComponent implements OnInit {
   categories: CategoryDTO[] = [];
-  newCategory: CategoryDTO = { name: '', iconName: '', color: '' }; // Obiekt do tworzenia nowych kategorii
-  editCategory: CategoryDTO | null = null; // Obiekt do edytowania wybranej kategorii
+  newCategory: CategoryDTO = { name: '', iconName: '', color: '' };
+  editCategory: CategoryDTO | null = null;
 
   constructor(private sharedService: SharedService) {}
 
@@ -22,15 +22,12 @@ export class CategoryComponent implements OnInit {
     this.loadCategories();
   }
 
-  // Ładujemy wszystkie kategorie
   loadCategories(): void {
     this.sharedService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
-      console.log('Zaktualizowane kategorie:', this.categories);
     });
   }
 
-  // Tworzymy nową kategorię
   addCategory(): void {
     if (this.newCategory.name && this.newCategory.iconName && this.newCategory.color) {
       const categoryToAdd: CategoryDTO = {
@@ -39,33 +36,32 @@ export class CategoryComponent implements OnInit {
         color: this.newCategory.color,
       };
 
-      this.sharedService.addCategory(categoryToAdd); // Dodajemy kategorię
+      this.sharedService.addCategory(categoryToAdd);
       this.saveCategoriesToLocalStorage();
 
-      this.newCategory = { name: '', iconName: '', color: '' }; // Resetujemy formularz
-      this.loadCategories(); // Załaduj kategorie, aby odświeżyć widok
+      this.newCategory = { name: '', iconName: '', color: '' };
+      this.loadCategories();
     }
   }
 
   // Edytujemy kategorię
   editCategoryData(category: CategoryDTO): void {
-    this.editCategory = { ...category }; // Robimy kopię wybranej kategorii do edycji
+    this.editCategory = { ...category };
   }
 
   // Zatwierdzamy edycję
   saveEditedCategory(): void {
     if (this.editCategory) {
       this.sharedService.updateCategory(this.editCategory.name, this.editCategory);
-      this.editCategory = null; // Resetujemy edycję po zapisaniu
-      this.loadCategories(); // Przeładuj listę kategorii
+      this.editCategory = null;
+      this.loadCategories();
     }
   }
 
   // Usuwamy kategorię
   deleteCategory(name: string): void {
     this.sharedService.deleteCategory(name);
-    console.log('Kategoria usunięta:', name);
-    this.loadCategories(); // Przeładuj listę kategorii po usunięciu
+    this.loadCategories();
   }
 
   // Anulowanie edycji
@@ -74,19 +70,15 @@ export class CategoryComponent implements OnInit {
   }
 
   private saveCategoriesToLocalStorage(): void {
-    // Sprawdzamy, czy są już zapisane kategorie w localStorage
     const storedCategories = localStorage.getItem('categories');
     let categoriesArray: CategoryDTO[] = [];
 
     if (storedCategories) {
-      // Jeśli kategorie już są zapisane, parsujemy je
       categoriesArray = JSON.parse(storedCategories);
     }
 
-    // Dodajemy nową kategorię do listy
     categoriesArray.push(...this.categories);
 
-    // Zapisujemy zaktualizowaną listę kategorii w localStorage
     localStorage.setItem('categories', JSON.stringify(categoriesArray));
   }
 

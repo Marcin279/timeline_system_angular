@@ -28,7 +28,7 @@ body {
 }
 
 .timeline > li {
-  margin-bottom: 20px;
+  margin-bottom: 250px;
   position: relative;
 }
 

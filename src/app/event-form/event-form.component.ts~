@@ -37,6 +37,7 @@ export class EventFormComponent implements OnInit {
   loadCategories(): void {
     this.sharedService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
+      console.log('Zaktualizowane kategorie:', this.categories);
     });
   }
 
@@ -50,6 +51,7 @@ export class EventFormComponent implements OnInit {
       this.newEvent.description
     ) {
       this.sharedService.addEvent(this.newEvent); // Wywołanie metody z SharedService
+      console.log('Wydarzenie zostało dodane:', this.newEvent);
       this.resetForm(); // Czyszczenie formularza
     }
   }

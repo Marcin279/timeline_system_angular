@@ -14,7 +14,7 @@ import {CommonModule} from '@angular/common';
 export class TimelineComponent implements OnInit {
 
   events: EventDTO[] = [];
-  // categories: Map<string, CategoryDTO> = new Map();
+  // categories: Map<string, CategoryDTO> = new Map();  // Mapujemy kategorie po nazwach
   categories: CategoryDTO[] = [];
   eventOpenState: Map<number, boolean> = new Map();
   EventsForTimeline: EventDTO[] = [];
